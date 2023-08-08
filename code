@@ -1,0 +1,36 @@
+import random
+import string
+
+def generate_key(key_length):
+    key = ''.join(random.choices(string.ascii_letters + string.digits, k=key_length))
+    return key
+
+def encrypt_message(message, key):
+    encrypted_message = ""
+    for char in message:
+        encrypted_char = chr((ord(char) + key) % 256)
+        encrypted_message += encrypted_char
+    return encrypted_message
+
+def decrypt_message(encrypted_message, key):
+    decrypted_message = ""
+    for char in encrypted_message:
+        decrypted_char = chr((ord(char) - key) % 256)
+        decrypted_message += decrypted_char
+    return decrypted_message
+
+def main():
+    message = input("Enter your message: ")
+    key_length = random.randint(5, 15)
+    encryption_key = generate_key(key_length)
+
+    print("Generated encryption key:", encryption_key)
+
+    encrypted_message = encrypt_message(message, len(encryption_key))
+    decrypted_message = decrypt_message(encrypted_message, len(encryption_key))
+
+    print("Encrypted message:", encrypted_message)
+    print("Decrypted message:", decrypted_message)
+
+if __name__ == '__main__':
+    main()
